@@ -31,7 +31,7 @@ class MainActivity : ComponentActivity() {
                 Scaffold(modifier = Modifier.fillMaxSize()
                     .padding(16.dp)) { innerPadding ->
                     Column {
-                        SliderFarenheit()
+                        SliderFahrenheit()
                     }
                 }
             }
@@ -39,28 +39,20 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
 
 @Composable
-fun SliderFarenheit() {
-    var sliderPosition by remember { mutableFloatStateOf(0f) }
+fun SliderFahrenheit() {
+    var sliderPosition by remember { mutableFloatStateOf(32f) }
     var secondSliderPosition by remember { mutableFloatStateOf(0f) }
     Column {
         Text(
-            "Farenheit"
+            "Fahrenheit"
         )
         Slider(
             value = sliderPosition,
             onValueChange = { sliderPosition = it
                             secondSliderPosition = (5f/9f)*(it-32f)
-                            if (sliderPosition <32) {
+                            if (sliderPosition <32) {       //snaps back to 32 degrees
                                 sliderPosition = 32f
                             }
                             if (secondSliderPosition <0){
@@ -75,7 +67,7 @@ fun SliderFarenheit() {
             text = ("%.1f".format(sliderPosition))
         )
 
-        Text("Celcius")
+        Text("Celsius")
 
         Slider(
             value = secondSliderPosition,
@@ -99,27 +91,3 @@ fun SliderFarenheit() {
         }
 }
 
-
-@Preview
-@Composable
-fun SliderCelcius() {
-    var sliderPosition by remember { mutableFloatStateOf(0f) }
-    Column {
-        Slider(
-            value = sliderPosition,
-            onValueChange = { sliderPosition = it },
-            steps = 99,
-            valueRange = 0f..100f
-        )
-
-        Text(text = (sliderPosition).toInt().toString())
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    SlidertestTheme {
-        Greeting("Android")
-    }
-}
